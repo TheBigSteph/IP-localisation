@@ -81,7 +81,7 @@ export default function Home() {
           </div>
           <div>
             <h3>Service 3: IP2LOCATION</h3>
-            <button onClick={() => service('https://api.ip2location.com/v2/?key=J9Y4W4QW6E&format=json&package=WS25&&addon=continent,country,region,city,geotargeting')}>Valider</button>
+            <button onClick={() => service('https://api.ip2location.com/v2/?key=J9Y4W4QW6E&format=json&package=WS25&addon=continent,country,region,city,geotargeting')}>Valider</button>
           </div>
           <div>
             <h3>Service 4: IPAPI </h3>
@@ -98,7 +98,7 @@ export default function Home() {
           <ul>
             <li>Ville: {result?.city || result?.location.city || result?.city_name}</li>
             <li>IP: {result?.ip || result?.query || result?.ip_address}</li>
-            <li>Code postal: {result?.postal || result?.zipcode || result?.zip_code || result?.zip || result?.location.postalCode || result?.postal_code} </li>
+            <li>Code postal: {result?.postal || result?.zipcode || result?.zip_code || result?.zip || result?.postal_code || result?.location.postalCode} </li>
           </ul>
         </div>
       </main>
