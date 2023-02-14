@@ -1,91 +1,130 @@
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from './page.module.css'
+"use client"; // this is a client component
 
-const inter = Inter({ subsets: ['latin'] })
+import Image from "next/image";
+import { Inter } from "@next/font/google";
+import styles from "./page.module.css";
+import axios from "axios";
+import { useState } from "react";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [result, setResult] = useState(null);
+
+  function service(url) {
+    try {
+      axios.get(url).then((response) => {
+        console.log(response);
+        setResult(response.data);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function service2() {
+    try {
+      axios.get("https://api.ipgeolocation.io/ipgeo?apiKey=0b220fc73ca94e4b8eb795e6b4994241").then((response) => {
+        console.log(response);
+        setResult(response.data);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function service3() {
+    try {
+      axios.get("http://ip-api.com/json/").then((response) => {
+        console.log(response);
+        setResult(response.data);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function service4() {
+    try {
+      axios.get("http://api.ipstack.com/check?access_key=e2307b75886781d833eedabcfcff6042").then((response) => {
+        console.log(response);
+        setResult(response.data);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function service5() {
+    try {
+      axios.get("http://api.ipstack.com/check?access_key=e2307b75886781d833eedabcfcff6042").then((response) => {
+        console.log(response);
+        setResult(response.data);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div>
+      <h1>TEST de plusieurs service de IP géolocalisation</h1>
+      <main className={styles.main}>
+        <div className={styles.service}>
+          <div>
+            <h3>Service 1: IPWHO </h3>
+            <button onClick={() => service('http://ipwho.is/')}>Valider</button>
+          </div>
+          <div>
+            <h3>Service 2: IP GEOLOCALISATION</h3>
+            <button onClick={() => service('https://api.ipgeolocation.io/ipgeo?apiKey=0b220fc73ca94e4b8eb795e6b4994241')}>Valider</button>
+          </div>
+          <div>
+            <h3>Service 3: IP API</h3>
+            <button onClick={() => service('http://ip-api.com/json/')}>Valider</button>
+          </div>
+          <div>
+            <h3>Service 4: IPSTACK</h3>
+            <button onClick={() => service('http://api.ipstack.com/check?access_key=475174b90b148bfea3f29ac9e44ab2b4')}>Valider</button>
+          </div>
+          <div>
+            <h3>Service 5: IPAPI </h3>
+            <button onClick={() => service('https://ipapi.co/json/')}>Valider</button>
+          </div>
+          <div>
+            <h3>Service 6: IPIFY </h3>
+            <button onClick={() => service('https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_JOGj9MWCZJMtqgwOXbxa8sEqTO4nE')}>Valider</button>
+          </div>
+          {/* <div>
+            <h3>Service 6: ipwho API</h3>
+            <button onClick={service1}>Valider</button>
+          </div>
+          <div>
+            <h3>Service 7: ipwho API</h3>
+            <button onClick={service1}>Valider</button>
+          </div>
+          <div>
+            <h3>Service 8: ipwho API</h3>
+            <button onClick={service1}>Valider</button>
+          </div>
+          <div>
+            <h3>Service 9: ipwho API</h3>
+            <button onClick={service1}>Valider</button>
+          </div>
+          <div>
+            <h3>Service 10: ipwho API</h3>
+            <button onClick={service1}>Valider</button>
+          </div> */}
         </div>
-      </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
+        <div className="result">
+          <ul>
+            <li>Ville: {result?.city || result?.location.city}</li>
+            <li>IP: {result?.ip || result?.query}</li>
+            <li>Code postal: {result?.postal || result?.zipcode || result?.zip || result?.location.postalCode} </li>
+          </ul>
         </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+      </main>
+    </div>
+  );
 }
